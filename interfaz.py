@@ -43,7 +43,6 @@ def iniciar_sesion():
                         except ValueError as e:
                             print ("Ingrese un valor valido.")
                             print (f"Detalles del error: {e}")
-                
                 else:
                     print ("Ingres un usuario existente")
             elif opcion == 2:
