@@ -3,8 +3,8 @@ from abc import ABC, abstractmethod
 class Usuario(ABC):
     @abstractmethod
     def __init__(self, id, nombre, email):
-        self.__id = id #Dato privado
-        self._nombre = nombre #Proteger el nombre
+        self.__id = str(id).strip() #Dato privado
+        self.nombre = nombre #Proteger el nombre
         self.email = email #Dato publico 
 
     @property #Se acceda al atributo 'id'
@@ -23,11 +23,18 @@ class Usuario(ABC):
             raise ValueError ("El nombre no pueddo estar vacio")
         self._nombre = nuevo #Guardamos el parametro 'nuevo' en la clase
 
+    def __del__(self):
+        pass
+
 class Estudiante(Usuario): #Se usa herencia, haciendo una subclase hereddado de Usuario
-    def __init__(self, id, nombre, email,carne):
+    def __init__(self, id, nombre, email,carnet):
         super().__init__(id, nombre, email)
-        self.carne = carne
+        self.carne = carnet
         self.cursos_inscritos = set() #Definimos un set para que los estudiantes no sean duplicados
+
+
+    def __del__(self):
+        pass
 
 class Instructor(Usuario): #Se hereda de la clase padre
     def __init__(self, id, nombre, email, especialidad=None): #Se define el 'None' para poder asignarle luego el curso en caso de no haberle asginadod anteriormente
@@ -35,6 +42,12 @@ class Instructor(Usuario): #Se hereda de la clase padre
         self.especialidad = especialidad
         self.curso = set() #Se verifica que el instructor no se duplique en el mismo curso
 
+    def __del__(self):
+        pass
+
 class Admin(Usuario):
     def __init__(self, id, nombre, email):
         super().__init__(id, nombre, email)
+
+    def __del__(self):
+        pass
